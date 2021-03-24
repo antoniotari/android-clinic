@@ -126,7 +126,7 @@ class OkHttpExample(private val url: String) {
     private fun extractTitleFromJson(json: JSONObject, position:Int): String? {
         return json
                 .getJSONArray("images")
-                .getJSONObject(0)
+                .getJSONObject(position)
                 .getString("title")
     }
 
