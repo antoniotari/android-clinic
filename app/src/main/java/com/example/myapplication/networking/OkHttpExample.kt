@@ -2,11 +2,8 @@ package com.example.myapplication.networking
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.example.myapplication.BROADCAST_EVENT_IMAGEURL
-import com.example.myapplication.BROADCAST_EVENT_NAME
-import com.example.myapplication.URL_IMAGE_FALLBACK
+import com.example.myapplication.*
 import com.squareup.okhttp.*
 import org.json.JSONObject
 import java.io.IOException
@@ -91,8 +88,11 @@ class OkHttpExample(private val url: String) {
             override fun onResponse(response: Response?) {
                 if (response?.isSuccessful == true) {
                     val responseJson = JSONObject(response.body().string())
-                    val imageUrl = extractImageFroJson(responseJson)
-                    sendMessage(context, imageUrl)
+                    val imageUrl = extractImageUrlFromJson(responseJson,2)
+                    val title = extractTitleFromJson(responseJson,2)
+                    sendMessage(context,
+                            imageUrl,
+                            title)
                 } else {
                     throw IOException("Unexpected code $response");
                 }
@@ -116,8 +116,18 @@ class OkHttpExample(private val url: String) {
      * }
      *
      */
-    private fun extractImageFroJson(json: JSONObject): String? {
-        return json.getJSONArray("images").getJSONObject(0).getString("imageUrl")
+    private fun extractImageUrlFromJson(json: JSONObject, position:Int): String? {
+        return json
+                .getJSONArray("images")
+                .getJSONObject(position)
+                .getString("imageUrl")
+    }
+
+    private fun extractTitleFromJson(json: JSONObject, position:Int): String? {
+        return json
+                .getJSONArray("images")
+                .getJSONObject(0)
+                .getString("title")
     }
 
     private fun buildRequest(): Request {
@@ -130,10 +140,11 @@ class OkHttpExample(private val url: String) {
 
     // Send an Intent with an action named "custom-event-name". The Intent sent should
     // be received by the ReceiverActivity.
-    private fun sendMessage(context: Context?, message: String?) {
+    private fun sendMessage(context: Context?, message: String?, title: String?) {
         val intent = Intent(BROADCAST_EVENT_NAME)
         // You can also include some extra data.
-        intent.putExtra(BROADCAST_EVENT_IMAGEURL, message)
+        intent.putExtra(BROADCAST_KEY_IMAGEURL, message)
+        intent.putExtra(BROADCAST_KEY_TITLE, title)
 
         context?.let { LocalBroadcastManager.getInstance(it).sendBroadcast(intent) }
         // the previous like is the same as doing this

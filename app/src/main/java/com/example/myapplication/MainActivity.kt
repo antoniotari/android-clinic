@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View.GONE
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.bumptech.glide.Glide
@@ -19,6 +20,7 @@ import com.example.myapplication.networking.OkHttpExample
 class MainActivity : AppCompatActivity() {
 
     private lateinit var imageView: ImageView
+    private lateinit var textView: TextView
     private lateinit var button: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         imageView = findViewById(R.id.image)
+        textView = findViewById(R.id.title)
         button = findViewById(R.id.button)
 
         button.setOnClickListener {
@@ -51,8 +54,11 @@ class MainActivity : AppCompatActivity() {
     private val messageReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
             // Get extra data included in the Intent
-            val message = intent.getStringExtra(BROADCAST_EVENT_IMAGEURL)
-            loadImageWithGlide(message?:URL_IMAGE_FALLBACK)
+            val imageUrl = intent.getStringExtra(BROADCAST_KEY_IMAGEURL)
+            loadImageWithGlide(imageUrl?:URL_IMAGE_FALLBACK)
+
+            val title = intent.getStringExtra(BROADCAST_KEY_TITLE)
+            textView.text = title
         }
     }
 
