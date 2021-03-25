@@ -1,5 +1,7 @@
 package com.example.myapplication.kotlin
 
+import android.util.Log
+
 /**
  * Kotlin has two types of constructor - one is the primary constructor and the other is the secondary constructor.
  * One Kotlin class can have one primary constructor, and one or more secondary constructor.
@@ -8,6 +10,7 @@ package com.example.myapplication.kotlin
  *
  */
 class Examples(private val name: String, private val age: Int = 22) {
+
     init {
         val a: Int = 10000
         val d: Double = 100.00
@@ -16,7 +19,7 @@ class Examples(private val name: String, private val age: Int = 22) {
         val s: Short = 10
         val b: Byte = 1
 
-        println("Your Int Value is $a")
+        Log.d("tag","Your Int Value is $a")
         println("Your Double  Value is $d")
         println("Your Float Value is $f")
         println("Your Long Value is $l")
@@ -60,7 +63,7 @@ class Examples(private val name: String, private val age: Int = 22) {
         } else {
             max = b
         }
-        print("Maximum of a or b is " +max)
+        print("Maximum of a or b is $max")
 
         // As expression
         // val max = if (a > b) a else b
@@ -87,7 +90,7 @@ class Examples(private val name: String, private val age: Int = 22) {
     fun nullSafety() {
 
         // Nullable properties
-        //val cannotBeNull: String = null // Invalid
+        // val cannotBeNull: String = null // Invalid
         val nullableString: String? = null // Valid
 
         //val cannotBeNull: Int = null // Invalid

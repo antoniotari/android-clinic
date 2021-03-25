@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
@@ -16,12 +17,13 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_gravity="center"
-        android:padding="11dp"
-        android:maxLines="2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"/>
+        android:layout_gravity="center"
+        android:maxLines="2"
+        android:padding="11dp"
+        android:textStyle="bold"
+        tools:text="placeholder" />
 
     <ImageView
         android:id="@+id/image"

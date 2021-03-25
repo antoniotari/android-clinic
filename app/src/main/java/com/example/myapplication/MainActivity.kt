@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.myapplication.networking.OkHttpExample
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var imageView: ImageView
@@ -32,7 +31,9 @@ class MainActivity : AppCompatActivity() {
         button = findViewById(R.id.button)
 
         button.setOnClickListener {
+            // making the button invisible
             button.visibility = GONE
+            // start a network request
             OkHttpExample(URL_REQUEST)
                     .asyncCall(this)
         }
@@ -42,7 +43,10 @@ class MainActivity : AppCompatActivity() {
         // with actions named "custom-event-name".
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(messageReceiver,
-                        IntentFilter(BROADCAST_EVENT_NAME));
+                        IntentFilter(BROADCAST_EVENT_NAME))
+
+        imageView.setImageResource(R.drawable.ic_launcher_background)
+
     }
 
     override fun onStart() {

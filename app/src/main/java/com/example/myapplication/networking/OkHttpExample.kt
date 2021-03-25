@@ -88,8 +88,8 @@ class OkHttpExample(private val url: String) {
             override fun onResponse(response: Response?) {
                 if (response?.isSuccessful == true) {
                     val responseJson = JSONObject(response.body().string())
-                    val imageUrl = extractImageUrlFromJson(responseJson,2)
-                    val title = extractTitleFromJson(responseJson,2)
+                    val imageUrl = extractImageUrlFromJson(responseJson,1)
+                    val title = extractTitleFromJson(responseJson,1)
                     sendMessage(context,
                             imageUrl,
                             title)
